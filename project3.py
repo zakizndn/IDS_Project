@@ -45,9 +45,9 @@ import seaborn as sns
 from scipy import stats
 import streamlit as st
 
-"""### 1.0   EDA"""
+"""### 1.0) EDA"""
 df = pd.read_csv("Telco-Customer-Churn.csv")
-"""##### 1.1   df.shape"""
+"""##### 1.1) df.shape"""
 st.write('Row =', df.shape[0])
 st.write('Column =', df.shape[1])
 """##### 1.2 df.types"""
@@ -110,7 +110,7 @@ for churn, count in churn_counts.items():
 st.write(f'Total Number of Customers: {df.shape[0]}')
 
 """
-Conclusion
+####### Conclusion
 
 The churn rate is approximately
 26.54%. This indicates the percentage of customers who have churned out of the total customer population.
