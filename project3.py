@@ -227,25 +227,30 @@ for partner_status, dependents_status in partner_dependents_combinations:
 Can we predict the likelihood of churn for a customer based on their contract type with the company?
 """
 
+st.title('##### Churn Distribution by Contract Type')
+
 # Count the occurrences of churn for each contract type
 churn_counts = df.groupby(['Contract', 'Churn']).size().reset_index(name='Counts')
 
 # Pivot the DataFrame for easy plotting
 pivot_df = churn_counts.pivot(index='Contract', columns='Churn', values='Counts')
 
-st.title('Churn Distribution by Contract Type')
+# Plot the churn distribution by contract type
+fig, ax = plt.subplots(figsize=(12, 5))
+pivot_df.plot(kind='bar', color=['lightcoral', 'skyblue'], ax=ax)
+plt.title('Churn Distribution by Contract Type')
+plt.xlabel('Contract Type')
+plt.ylabel('Number of Customers')
+plt.legend(title='Churn', labels=['Churn', 'No Churn'], loc='upper right')
+plt.xticks(rotation=0)
 
-# Plot churn distribution by contract type
-st.bar_chart(pivot_df, use_container_width=True)
+# Annotate the bars with counts
+for p in ax.patches:
+    ax.annotate(str(int(p.get_height())), (p.get_x() + p.get_width() / 2., p.get_height()),
+                ha='center', va='center', xytext=(0, 5), textcoords='offset points', color='black', fontweight='bold')
 
-# Display table with churn counts
-st.write("## Churn Counts by Contract Type")
-st.write(pivot_df)
-
-# Display total churn counts
-total_counts = pivot_df.sum(axis=1)
-st.write("## Total Churn Counts by Contract Type")
-st.write(total_counts)
+# Display the plot in Streamlit
+st.pyplot(fig)
 
 """
 ###### Conclusion
