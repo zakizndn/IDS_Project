@@ -101,12 +101,6 @@ plt.ylabel('Number of Customers')
 # Display the plot in Streamlit
 st.pyplot(fig)
 
-# Count the occurrences of churn
-churn_counts = df['Churn'].value_counts()
-
-for churn, count in churn_counts.items():
-    st.write(f'Churn: {churn}, Number of Customers: {count}')
-
 """
 ###### Conclusion
 
@@ -138,6 +132,7 @@ st.write("##### Correlation Matrix: Churn and Additional Services")
 # Display the correlation matrix plot
 fig, ax = plt.subplots(figsize=(8, 6))
 sns.heatmap(service_df.corr(), annot=True, cmap='rocket_r', fmt=".2f", linewidths=.5, ax=ax)
+plt.title('Correlation Matrix: Churn and Additional Services')
 st.pyplot(fig)
 
 """
@@ -224,8 +219,6 @@ for partner_status, dependents_status in partner_dependents_combinations:
 Can we predict the likelihood of churn for a customer based on their contract type with the company?
 """
 
-st.title('##### Churn Distribution by Contract Type')
-
 # Count the occurrences of churn for each contract type
 churn_counts = df.groupby(['Contract', 'Churn']).size().reset_index(name='Counts')
 
@@ -233,7 +226,7 @@ churn_counts = df.groupby(['Contract', 'Churn']).size().reset_index(name='Counts
 pivot_df = churn_counts.pivot(index='Contract', columns='Churn', values='Counts')
 
 # Plot the churn distribution by contract type
-fig, ax = plt.subplots(figsize=(12, 5))
+fig, ax = plt.subplots(figsize=(8, 5))
 pivot_df.plot(kind='bar', color=['lightcoral', 'skyblue'], ax=ax)
 plt.title('Churn Distribution by Contract Type')
 plt.xlabel('Contract Type')
@@ -264,14 +257,11 @@ compared to those with month-to-month contracts. This suggests that longer-term 
 
 """
 #### (2.5) Causal Question
-Does the introduction of a more customer-friendly payment method, such as providing incentives for customers 
-to switch to automatic bank transfers or credit card payments, lead to a reduction in customer churn rates?
+Does the introduction of a more customer-friendly payment method, such as providing incentives for customers to switch to automatic bank transfers or credit card payments, lead to a reduction in customer churn rates?
 """
 
 # Select relevant columns
 payment_churn_df = df[['PaymentMethod', 'Churn']]
-
-st.title('Churn Distribution by Payment Method')
 
 # Create a bar chart to visualize the relationship between payment method and churn
 fig, ax = plt.subplots(figsize=(12, 5))
@@ -296,7 +286,7 @@ pivot_df = payment_churn_counts.pivot(index='PaymentMethod', columns='Churn', va
 pivot_df['Total'] = pivot_df['No'] + pivot_df['Yes']
 
 # Display the churn distribution by payment method as a table
-st.write("## Churn Distribution by Payment Method:")
+st.write("###### Churn Distribution by Payment Method:")
 st.write(pivot_df[['No', 'Yes', 'Total']])
 
 
@@ -315,14 +305,11 @@ It is observed that the churn rate is significantly higher for customers using e
 
 """
 #### (2.6) Mechanistic Question
-How does the length of time a customer stays with the company (tenure) impact their likelihood of churning, 
-and can we identify specific patterns or trends in tenure that contribute to customer retention or attrition?
+How does the length of time a customer stays with the company (tenure) impact their likelihood of churning, and can we identify specific patterns or trends in tenure that contribute to customer retention or attrition?
 """
 
-st.title('Distribution of Tenure by Churn')
-
 # Create a boxplot for the distribution of tenure by Churn
-fig, ax = plt.subplots(figsize=(6, 5))
+fig, ax = plt.subplots(figsize=(8, 5))
 sns.boxplot(x='Churn', y='tenure', data=df, palette='Blues', ax=ax)
 plt.title('Distribution of Tenure by Churn')
 plt.xlabel('Churn')
@@ -335,7 +322,7 @@ st.pyplot(fig)
 summary_stats = df.groupby('Churn')['tenure'].describe().round(2)
 
 # Display the summary statistics as a table
-st.write("## Summary Statistics for Tenure:")
+st.write("###### Summary Statistics for Tenure:")
 st.write(summary_stats)
 
 """
