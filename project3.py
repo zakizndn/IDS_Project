@@ -52,15 +52,15 @@ print('Column =', df.shape[1])
 """##### df.types"""
 df.dtypes
 """##### df.info()"""
-df.info()
+print(df.info())
 """##### df.isnull().sum()"""
-df.isnull().sum()
+print(df.isnull().sum())
 """##### df"""
 df
 """##### df.sample(n = 10)"""
 df.sample(n = 10)
 """##### df.describe()"""
-df.describe()
+print(df.describe())
 
 """The Question
 
