@@ -61,7 +61,7 @@ st.write(df.sample(n=10))
 """##### df.describe()"""
 st.write(df.describe())
 
-
+st.markdown("---") 
 """
 ### (2) What determines the reasons for customers to give up the services
 
