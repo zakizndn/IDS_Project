@@ -339,6 +339,7 @@ summary_stats = df.groupby('Churn')['tenure'].describe().round(2)
 st.write("## Summary Statistics for Tenure:")
 st.write(summary_stats)
 
+"""
 Conclusion
 
 Customers who have been with the company for a longer period (higher tenure) have a lower likelihood of churning.
