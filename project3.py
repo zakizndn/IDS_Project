@@ -281,7 +281,7 @@ st.pyplot(fig)
 payment_churn_counts = df.groupby(['PaymentMethod', 'Churn']).size().reset_index(name='Counts')
 pivot_df = payment_churn_counts.pivot(index='PaymentMethod', columns='Churn', values='Counts').fillna(0).astype(int)
 pivot_df['Total'] = pivot_df['No'] + pivot_df['Yes']
-pivot_df['Churn Rate'] = (pivot_df['Yes'] / pivot_df['Total'])*100
+pivot_df['Churn Rate (%)'] = (pivot_df['Yes'] / pivot_df['Total'])*100
 
 # Display the churn distribution by payment method as a table
 st.write("###### Churn Distribution by Payment Method:")
