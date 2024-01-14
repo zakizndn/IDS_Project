@@ -45,28 +45,28 @@ import seaborn as sns
 from scipy import stats
 import streamlit as st
 
-"""### 1.0) EDA"""
+"""## (1.0) EDA"""
 df = pd.read_csv("Telco-Customer-Churn.csv")
-"""##### 1.1) df.shape"""
+"""#### (1.1) df.shape"""
 st.write('Row =', df.shape[0])
 st.write('Column =', df.shape[1])
-"""##### 1.2 df.types"""
+"""#### (1.2) df.types"""
 st.write(df.dtypes)
-"""##### 1.3 df.isnull().sum()"""
+"""#### (1.3) df.isnull().sum()"""
 st.write(df.isnull().sum())
-"""##### 1.4 df"""
+"""#### (1.4) df"""
 st.write(df)
-"""##### 1.5 df.sample(n = 10)"""
+"""#### (1.5) df.sample(n = 10)"""
 st.write(df.sample(n=10))
-"""##### 1.6 df.describe()"""
+"""#### (1.6) df.describe()"""
 st.write(df.describe())
 
 st.markdown("---") 
 
 """
-### 2.0 What determines the reasons for customers to give up the services
+## (2.0) What determines the reasons for customers to give up the services
 
-##### The Question
+#### The Question
 
 1. Descriptive: A descriptive question is one that seeks to summarize a characteristic of a set of data.
 
@@ -82,7 +82,7 @@ st.markdown("---")
 """
 
 """
-##### 2.1 Descriptive Question
+#### (2.1) Descriptive Question
 What is the churn rate derived from the dataset?
 """
 
@@ -110,14 +110,14 @@ for churn, count in churn_counts.items():
 st.write(f'Total Number of Customers: {df.shape[0]}')
 
 """
-####### Conclusion
+###### Conclusion
 
 The churn rate is approximately
 26.54%. This indicates the percentage of customers who have churned out of the total customer population.
 """
 
 """
-##### 2.2 Exploratory Question
+#### (2.2) Exploratory Question
 How do the churn correlate with the adoption of additional services like Online Security, Streaming TV, and Device Protection?
 """
 
@@ -144,7 +144,7 @@ sns.heatmap(service_df.corr(), annot=True, cmap='rocket_r', fmt=".2f", linewidth
 st.pyplot(fig)
 
 """
-Conclusion
+###### Conclusion
 
 Churn and Online Backup:
 - There is a weak negative correlation (-0.08) between 'Churn' and 'Online Backup'.
@@ -172,7 +172,7 @@ Churn and Tech Support:
 """
 
 """
-##### 2.3 Inferential Question
+#### (2.3) Inferential Question
 Based on the observed higher churn rate for customers with a partner in the dataset, 
 can we infer that this difference is consistent for customers with dependents?
 """
@@ -218,7 +218,7 @@ for partner_status, dependents_status in partner_dependents_combinations:
     st.write(f"Churn rate for customers with Partner = {partner_status} and Dependents = {dependents_status}: {churn_rate:.2%}")
 
 """
-Conclusion
+###### Conclusion
 
 - The difference in churn rates for customers with a partner appears to be influenced by the presence or absence of dependents.
 - Customers with both a partner and dependents have the lowest churn rate, suggesting that having both a partner and dependents may contribute to higher customer retention.
@@ -226,7 +226,7 @@ Conclusion
 """
 
 """
-##### 2.4 Predictive Question
+#### (2.4) Predictive Question
 Can we predict the likelihood of churn for a customer based on their contract type with the company?
 """
 
@@ -251,7 +251,7 @@ st.write("## Total Churn Counts by Contract Type")
 st.write(total_counts)
 
 """
-Conclusion
+###### Conclusion
 
 Contract Type  | Churn Rate                 
 ---------------|----------------------
@@ -264,7 +264,7 @@ compared to those with month-to-month contracts. This suggests that longer-term 
 """
 
 """
-##### 2.5 Causal Question
+#### (2.5) Causal Question
 Does the introduction of a more customer-friendly payment method, such as providing incentives for customers 
 to switch to automatic bank transfers or credit card payments, lead to a reduction in customer churn rates?
 """
@@ -302,7 +302,7 @@ st.write(pivot_df[['No', 'Yes', 'Total']])
 
 
 """
-Conclusion
+###### Conclusion
 
 Payment Method            | Churn rate                   
 --------------------------|-------------------------
@@ -315,7 +315,7 @@ It is observed that the churn rate is significantly higher for customers using e
 """
 
 """
-##### 2.6 Mechanistic Question
+#### (2.6) Mechanistic Question
 How does the length of time a customer stays with the company (tenure) impact their likelihood of churning, 
 and can we identify specific patterns or trends in tenure that contribute to customer retention or attrition?
 """
@@ -340,7 +340,7 @@ st.write("## Summary Statistics for Tenure:")
 st.write(summary_stats)
 
 """
-Conclusion
+###### Conclusion
 
 Customers who have been with the company for a longer period (higher tenure) have a lower likelihood of churning.
 Customers with a lower tenure, on average, are more likely to churn.
