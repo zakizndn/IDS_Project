@@ -173,8 +173,7 @@ Churn and Tech Support:
 
 """
 #### (2.3) Inferential Question
-Based on the observed higher churn rate for customers with a partner in the dataset, 
-can we infer that this difference is consistent for customers with dependents?
+Based on the observed higher churn rate for customers with a partner in the dataset, can we infer that this difference is consistent for customers with dependents?
 """
 
 # Convert churn column to numerical values
