@@ -107,10 +107,6 @@ churn_counts = df['Churn'].value_counts()
 for churn, count in churn_counts.items():
     st.write(f'Churn: {churn}, Number of Customers: {count}')
 
-x = churn[1] / df.shape[0]
-st.write(f'Total Number of Customers: {df.shape[0]}')
-st.write(f'Churn Rate: {df.shape[0]}')
-
 """
 ###### Conclusion
 
