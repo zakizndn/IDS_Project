@@ -62,24 +62,6 @@ df.sample(n = 10)
 """###df.describe()"""
 df.describe()
 
-
-!pip install sweetviz
-
-# Importing sweetviz library
-import sweetviz as sv
-
-# Analyzing the dataset
-advert_report = sv.analyze(df)
-
-# Display the report
-advert_report.show_html('Advertising.html')
-
-advert_report.show_notebook()
-
-plt.figure(figsize=(5, 4))
-sns.heatmap(df.corr(), annot=True, fmt=".2f", linewidth=.5)
-plt.show()
-
 """The Question
 
 1. Descriptive: A descriptive question is one that seeks to summarize a characteristic of a set of data.
