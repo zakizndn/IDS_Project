@@ -239,6 +239,16 @@ for p in ax.patches:
 # Display the plot in Streamlit
 st.pyplot(fig)
 
+# Count the occurrences of churn for each contract type
+contract_churn_counts = df.groupby(['Contract', 'Churn']).size().reset_index(name='Counts')
+pivot_df = payment_churn_counts.pivot(index='Contract', columns='Churn', values='Counts').fillna(0).astype(int)
+pivot_df['Total'] = pivot_df['No'] + pivot_df['Yes']
+pivot_df['Churn Rate (%)'] = (pivot_df['Yes'] / pivot_df['Total'])*100
+
+# Display the churn distribution by payment method as a table
+st.write("###### Churn Distribution by Contract Type:")
+st.write(pivot_df[['No', 'Yes', 'Total', 'Churn Rate (%)']].round(2))
+
 """
 ###### Conclusion
 
@@ -290,14 +300,6 @@ st.write(pivot_df[['No', 'Yes', 'Total', 'Churn Rate (%)']].round(2))
 
 """
 ###### Conclusion
-
-Payment Method            | Churn rate                   
---------------------------|-------------------------
-Bank transfer (automatic) | 258 / 1544 = ~16.7%
-Credit card (automatic)   | 232 / 1522 = ~15.2%
-Electronic check          | 1071 / 2365 = ~45.3%
-Mailed check              | 308 / 1612 = ~19.1%
-
 It is observed that the churn rate is significantly higher for customers using electronic check as the payment method compared to other payment methods. Therefore, the results suggest that customers using electronic check tend to have a higher likelihood of churning. This supports the idea that introducing more customer-friendly payment methods (e.g., bank transfer or credit card) could potentially lead to a reduction in customer churn rates.
 """
 
