@@ -220,9 +220,7 @@ for partner_status, dependents_status in partner_dependents_combinations:
 churn_rates_df = pd.DataFrame(churn_rates_results)
 
 # Display the churn rates as a table using Streamlit
-st.write("## Churn Rates for Different Combinations:")
 st.table(churn_rates_df.style.format({'Churn Rate (%)': '{:.2f}%'}))
-
 
 """
 ###### Conclusion
