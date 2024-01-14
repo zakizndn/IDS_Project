@@ -113,7 +113,7 @@ st.write(f'Total Number of Customers: {df.shape[0]}')
 Conclusion
 
 The churn rate is approximately
-26.51%. This indicates the percentage of customers who have churned out of the total customer population.
+26.54%. This indicates the percentage of customers who have churned out of the total customer population.
 """
 
 """
