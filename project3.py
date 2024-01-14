@@ -44,26 +44,25 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 
+"""#(1) EDA"""
 df = pd.read_csv("Telco-Customer-Churn.csv")
-
-"""EDA"""
-
+"""###df.shape"""
 print('Row =', df.shape[0])
 print('Column =', df.shape[1])
-
+"""###df.types"""
 df.dtypes
-
+"""###df.info()"""
 df.info()
-
+"""###df.isnull().sum()"""
 df.isnull().sum()
-
+"""###df"""
 df
-
+"""###df.sample(n = 10)"""
 df.sample(n = 10)
-
+"""###df.describe()"""
 df.describe()
 
-"""
+
 !pip install sweetviz
 
 # Importing sweetviz library
@@ -80,7 +79,6 @@ advert_report.show_notebook()
 plt.figure(figsize=(5, 4))
 sns.heatmap(df.corr(), annot=True, fmt=".2f", linewidth=.5)
 plt.show()
-"""
 
 """The Question
 
@@ -135,24 +133,19 @@ Exploratory Question
 How do the churn correlate with the adoption of additional services like Online Security, Streaming TV, and Device Protection?
 """
 
-import warnings
-
 # Select relevant columns for analysis and create a copy
 selected_columns = ['Churn', 'OnlineBackup', 'OnlineSecurity', 'StreamingTV',
                     'StreamingMovies', 'DeviceProtection', 'TechSupport']
 service_df = df[selected_columns].copy()
 
 # Convert categorical variables to numerical for correlation analysis using .apply
-with warnings.catch_warnings():
-    warnings.simplefilter("ignore", category=DeprecationWarning)
-
-    service_df.loc[:, 'Churn'] = service_df['Churn'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
-    service_df.loc[:, 'OnlineBackup'] = service_df['OnlineBackup'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
-    service_df.loc[:, 'OnlineSecurity'] = service_df['OnlineSecurity'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
-    service_df.loc[:, 'StreamingTV'] = service_df['StreamingTV'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
-    service_df.loc[:, 'StreamingMovies'] = service_df['StreamingMovies'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
-    service_df.loc[:, 'DeviceProtection'] = service_df['DeviceProtection'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
-    service_df.loc[:, 'TechSupport'] = service_df['TechSupport'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
+service_df.loc[:, 'Churn'] = service_df['Churn'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
+service_df.loc[:, 'OnlineBackup'] = service_df['OnlineBackup'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
+service_df.loc[:, 'OnlineSecurity'] = service_df['OnlineSecurity'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
+service_df.loc[:, 'StreamingTV'] = service_df['StreamingTV'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
+service_df.loc[:, 'StreamingMovies'] = service_df['StreamingMovies'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
+service_df.loc[:, 'DeviceProtection'] = service_df['DeviceProtection'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
+service_df.loc[:, 'TechSupport'] = service_df['TechSupport'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
 
 # Plot correlation matrix
 correlation_matrix = service_df.corr()
