@@ -44,7 +44,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 
-"""#(1) EDA"""
+"""
+#(1) EDA
+"""
 df = pd.read_csv("Telco-Customer-Churn.csv")
 """###df.shape"""
 print('Row =', df.shape[0])
