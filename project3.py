@@ -136,7 +136,7 @@ service_df.loc[:, 'DeviceProtection'] = service_df['DeviceProtection'].apply(lam
 service_df.loc[:, 'TechSupport'] = service_df['TechSupport'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
 
 # Plot correlation matrix using Streamlit
-st.write("## Correlation Matrix: Churn and Additional Services")
+st.write("##### Correlation Matrix: Churn and Additional Services")
 
 # Display the correlation matrix plot
 fig, ax = plt.subplots(figsize=(8, 6))
