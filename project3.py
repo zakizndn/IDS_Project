@@ -87,16 +87,16 @@ What is the churn rate derived from the dataset?
 """
 
 # Plot the distribution of churn with customer counts
-fig, ax = plt.subplots(figsize=(4, 3))
+fig, ax = plt.subplots(figsize=(8, 5))
 sns.countplot(x='Churn', data=df, palette='viridis', ax=ax)
 
 for p in ax.patches:
     ax.annotate(str(int(p.get_height())), (p.get_x() + p.get_width() / 2., p.get_height()),
                 ha='center', va='center', xytext=(0, -30), textcoords='offset points', color='white', fontweight='bold')
 
-plt.title('Churn Distribution with Customer Counts', fontsize=10)
-plt.xlabel('Churn', fontsize=8)
-plt.ylabel('Number of Customers', fontsize=8)
+plt.title('Churn Distribution with Customer Counts')
+plt.xlabel('Churn')
+plt.ylabel('Number of Customers')
 
 # Display the plot in Streamlit
 st.pyplot(fig)
