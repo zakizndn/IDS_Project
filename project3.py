@@ -62,6 +62,10 @@ st.write(df.sample(n=10))
 st.write(df.describe())
 
 """
+
+"""
+### (2) What determines the reasons for customers to give up the services
+
 ##### The Question
 
 1. Descriptive: A descriptive question is one that seeks to summarize a characteristic of a set of data.
