@@ -96,15 +96,17 @@ for p in ax.patches:
 plt.title('Churn Distribution with Customer Counts')
 plt.xlabel('Churn')
 plt.ylabel('Number of Customers')
-plt.show()
+
+# Display the plot in Streamlit
+st.pyplot()
 
 # Count the occurrences of churn
 churn_counts = df['Churn'].value_counts()
 
 for churn, count in churn_counts.items():
-    print(f'Churn: {churn}, Number of Customers: {count}')
+    st.write(f'Churn: {churn}, Number of Customers: {count}')
 
-print(f'Total Number of Customers: {df.shape[0]}')
+st.write(f'Total Number of Customers: {df.shape[0]}')
 
 """
 Conclusion
