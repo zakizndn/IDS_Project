@@ -44,22 +44,22 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 
-"""# (1) EDA"""
+"""### (1) EDA"""
 df = pd.read_csv("Telco-Customer-Churn.csv")
-"""### df.shape"""
+"""##### df.shape"""
 print('Row =', df.shape[0])
 print('Column =', df.shape[1])
-"""### df.types"""
+"""##### df.types"""
 df.dtypes
-"""### df.info()"""
+"""##### df.info()"""
 df.info()
-"""### df.isnull().sum()"""
+"""##### df.isnull().sum()"""
 df.isnull().sum()
-"""### df"""
+"""##### df"""
 df
-"""### df.sample(n = 10)"""
+"""##### df.sample(n = 10)"""
 df.sample(n = 10)
-"""### df.describe()"""
+"""##### df.describe()"""
 df.describe()
 
 """The Question
