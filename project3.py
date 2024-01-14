@@ -126,9 +126,6 @@ service_df.loc[:, 'StreamingMovies'] = service_df['StreamingMovies'].apply(lambd
 service_df.loc[:, 'DeviceProtection'] = service_df['DeviceProtection'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
 service_df.loc[:, 'TechSupport'] = service_df['TechSupport'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
 
-# Plot correlation matrix using Streamlit
-st.write("##### Correlation Matrix: Churn and Additional Services")
-
 # Display the correlation matrix plot
 fig, ax = plt.subplots(figsize=(8, 6))
 sns.heatmap(service_df.corr(), annot=True, cmap='rocket_r', fmt=".2f", linewidths=.5, ax=ax)
