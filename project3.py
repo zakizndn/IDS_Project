@@ -94,9 +94,9 @@ for p in ax.patches:
     ax.annotate(str(int(p.get_height())), (p.get_x() + p.get_width() / 2., p.get_height()),
                 ha='center', va='center', xytext=(0, -30), textcoords='offset points', color='white', fontweight='bold')
 
-plt.title('Churn Distribution with Customer Counts, fontsize=12')
-plt.xlabel('Churn, fontsize=12')
-plt.ylabel('Number of Customers, fontsize=12')
+plt.title('Churn Distribution with Customer Counts', fontsize=16)
+plt.xlabel('Churn', fontsize=12)
+plt.ylabel('Number of Customers', fontsize=12)
 
 # Display the plot in Streamlit
 st.pyplot(fig)
