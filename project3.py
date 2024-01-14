@@ -198,10 +198,25 @@ partner_dependents_combinations = [
     ('No', 'No')
 ]
 
+# Create a list to store the results
+churn_rates_results = []
+
 for partner_status, dependents_status in partner_dependents_combinations:
     subset_df = df[(df['Partner'] == partner_status) & (df['Dependents'] == dependents_status)]
     churn_rate = subset_df['churn_numeric'].mean()
-    st.write(f"Churn rate for customers with Partner = {partner_status} and Dependents = {dependents_status}: {churn_rate:.2%}")
+    
+    # Append the results to the list
+    churn_rates_results.append({
+        'Partner': partner_status,
+        'Dependents': dependents_status,
+        'Churn Rate': churn_rate
+    })
+
+# Convert the list to a DataFrame
+churn_rates_df = pd.DataFrame(churn_rates_results)
+
+# Display the churn rates as a table using Streamlit
+st.table(churn_rates_df.round(4))
 
 """
 ###### Conclusion
@@ -251,13 +266,6 @@ st.write(pivot_df[['No', 'Yes', 'Total', 'Churn Rate (%)']].round(2))
 
 """
 ###### Conclusion
-
-Contract Type  | Churn Rate                 
----------------|----------------------
-Month-to-month | 1,655 / 3,875 = ~42.7%
-One-Year       | 166 / 1,473 = ~11.3%
-Two-Year       | 48 / 1,695 = ~2.8%
-
 Customers with longer contract durations (one year and two years) tend to have lower churn rates 
 compared to those with month-to-month contracts. This suggests that longer-term contracts are associated with higher customer retention.
 """
