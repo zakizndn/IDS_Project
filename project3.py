@@ -190,7 +190,9 @@ st.write(f"Churn rate for customers with a partner: {partner_churn_rate:.2%}")
 st.write(f"Churn rate for customers with dependents: {dependents_churn_rate:.2%}")
 
 # Calculate and display churn rates for different combinations
-st.write("###### Churn Rates for Different Combinations")
+st.write("# Churn Rates for Different Combinations")
+
+# Define partner and dependents combinations
 partner_dependents_combinations = [
     ('Yes', 'Yes'),
     ('Yes', 'No'),
@@ -201,6 +203,7 @@ partner_dependents_combinations = [
 # Create a list to store the results
 churn_rates_results = []
 
+# Calculate churn rates for different combinations
 for partner_status, dependents_status in partner_dependents_combinations:
     subset_df = df[(df['Partner'] == partner_status) & (df['Dependents'] == dependents_status)]
     churn_rate = subset_df['churn_numeric'].mean()
@@ -216,7 +219,9 @@ for partner_status, dependents_status in partner_dependents_combinations:
 churn_rates_df = pd.DataFrame(churn_rates_results)
 
 # Display the churn rates as a table using Streamlit
-st.table(churn_rates_df.round(4))
+st.write("###### Churn Rates for Different Combinations:")
+st.table(churn_rates_df.round(2))
+
 
 """
 ###### Conclusion
