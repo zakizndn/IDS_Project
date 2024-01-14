@@ -45,7 +45,7 @@ import seaborn as sns
 from scipy import stats
 import streamlit as st
 
-"""###   1.0 EDA"""
+"""### 1.0   EDA"""
 df = pd.read_csv("Telco-Customer-Churn.csv")
 """##### 1.1 df.shape"""
 st.write('Row =', df.shape[0])
