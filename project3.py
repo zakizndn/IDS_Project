@@ -87,7 +87,7 @@ What is the churn rate derived from the dataset?
 """
 
 # Plot the distribution of churn with customer counts
-fig, ax = plt.subplots(figsize=(5, 4))
+fig, ax = plt.subplots(figsize=(4, 3))
 sns.countplot(x='Churn', data=df, palette='viridis', ax=ax)
 
 for p in ax.patches:
@@ -184,10 +184,8 @@ df['churn_numeric'] = df['Churn'].map({'Yes': 1, 'No': 0})
 melted_df = pd.melt(df, id_vars=['Churn', 'churn_numeric'], value_vars=['Partner', 'Dependents'],
                     var_name='Attribute', value_name='Category')
 
-st.title('Churn Analysis')
 
 # Plot churn rate by Partner and Dependents
-st.write("## Churn Rate by Partner and Dependents")
 fig, ax = plt.subplots(figsize=(8, 5))
 sns.barplot(x='Attribute', y='churn_numeric', hue='Category', data=melted_df, palette='YlOrBr', ax=ax)
 plt.title('Churn Rate by Partner and Dependents')
