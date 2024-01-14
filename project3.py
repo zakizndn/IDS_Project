@@ -45,25 +45,26 @@ import seaborn as sns
 from scipy import stats
 import streamlit as st
 
-"""### (1) EDA"""
+"""### 1.0 EDA"""
 df = pd.read_csv("Telco-Customer-Churn.csv")
-"""##### df.shape"""
+"""##### 1.1 df.shape"""
 st.write('Row =', df.shape[0])
 st.write('Column =', df.shape[1])
-"""##### df.types"""
+"""##### 1.2 df.types"""
 st.write(df.dtypes)
-"""##### df.isnull().sum()"""
+"""##### 1.3 df.isnull().sum()"""
 st.write(df.isnull().sum())
-"""##### df"""
+"""##### 1.4 df"""
 st.write(df)
-"""##### df.sample(n = 10)"""
+"""##### 1.5 df.sample(n = 10)"""
 st.write(df.sample(n=10))
-"""##### df.describe()"""
+"""##### 1.6 df.describe()"""
 st.write(df.describe())
 
 st.markdown("---") 
+
 """
-### (2) What determines the reasons for customers to give up the services
+### 2.0 What determines the reasons for customers to give up the services
 
 ##### The Question
 
@@ -81,7 +82,7 @@ st.markdown("---")
 """
 
 """
-##### Descriptive Question
+##### 2.1 Descriptive Question
 What is the churn rate derived from the dataset?
 """
 
@@ -107,6 +108,7 @@ for churn, count in churn_counts.items():
     st.write(f'Churn: {churn}, Number of Customers: {count}')
 
 st.write(f'Total Number of Customers: {df.shape[0]}')
+
 """
 Conclusion
 
@@ -115,7 +117,7 @@ The churn rate is approximately
 """
 
 """
-Exploratory Question
+##### 2.2 Exploratory Question
 How do the churn correlate with the adoption of additional services like Online Security, Streaming TV, and Device Protection?
 """
 
@@ -133,12 +135,13 @@ service_df.loc[:, 'StreamingMovies'] = service_df['StreamingMovies'].apply(lambd
 service_df.loc[:, 'DeviceProtection'] = service_df['DeviceProtection'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
 service_df.loc[:, 'TechSupport'] = service_df['TechSupport'].apply(lambda x: 0 if x == 'No' else (1 if x == 'Yes' else 0))
 
-# Plot correlation matrix
-correlation_matrix = service_df.corr()
-plt.figure(figsize=(8, 6))
-sns.heatmap(correlation_matrix, annot=True, cmap='rocket_r', fmt=".2f", linewidths=.5)
-plt.title('Correlation Matrix: Churn and Additional Services')
-plt.show()
+# Plot correlation matrix using Streamlit
+st.write("## Correlation Matrix: Churn and Additional Services")
+
+# Display the correlation matrix plot
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.heatmap(service_df.corr(), annot=True, cmap='rocket_r', fmt=".2f", linewidths=.5, ax=ax)
+st.pyplot(fig)
 
 """
 Conclusion
@@ -169,7 +172,7 @@ Churn and Tech Support:
 """
 
 """
-Inferential Question
+##### 2.3 Inferential Question
 Based on the observed higher churn rate for customers with a partner in the dataset, 
 can we infer that this difference is consistent for customers with dependents?
 """
@@ -181,26 +184,27 @@ df['churn_numeric'] = df['Churn'].map({'Yes': 1, 'No': 0})
 melted_df = pd.melt(df, id_vars=['Churn', 'churn_numeric'], value_vars=['Partner', 'Dependents'],
                     var_name='Attribute', value_name='Category')
 
-plt.figure(figsize=(8, 5))
-sns.barplot(x='Attribute', y='churn_numeric', hue='Category', data=melted_df, palette='YlOrBr')
+st.title('Churn Analysis')
+
+# Plot churn rate by Partner and Dependents
+st.write("## Churn Rate by Partner and Dependents")
+fig, ax = plt.subplots(figsize=(8, 5))
+sns.barplot(x='Attribute', y='churn_numeric', hue='Category', data=melted_df, palette='YlOrBr', ax=ax)
 plt.title('Churn Rate by Partner and Dependents')
 plt.xlabel('Attribute')
 plt.ylabel('Churn Rate')
 plt.legend(title='Category')
+st.pyplot(fig)
 
-plt.show()
-
-# Calculate churn rate for customers with a partner
+# Calculate and display churn rates
 partner_churn_rate = df[df['Partner'] == 'Yes']['churn_numeric'].mean()
-
-# Calculate churn rate for customers with dependents
 dependents_churn_rate = df[df['Dependents'] == 'Yes']['churn_numeric'].mean()
 
-# Print the results
-print(f"Churn rate for customers with a partner: {partner_churn_rate:.2%}")
-print(f"Churn rate for customers with dependents: {dependents_churn_rate:.2%}")
+st.write(f"Churn rate for customers with a partner: {partner_churn_rate:.2%}")
+st.write(f"Churn rate for customers with dependents: {dependents_churn_rate:.2%}")
 
-# Calculate churn rates for different combinations
+# Calculate and display churn rates for different combinations
+st.write("## Churn Rates for Different Combinations")
 partner_dependents_combinations = [
     ('Yes', 'Yes'),
     ('Yes', 'No'),
@@ -211,7 +215,7 @@ partner_dependents_combinations = [
 for partner_status, dependents_status in partner_dependents_combinations:
     subset_df = df[(df['Partner'] == partner_status) & (df['Dependents'] == dependents_status)]
     churn_rate = subset_df['churn_numeric'].mean()
-    print(f"Churn rate for customers with Partner = {partner_status} and Dependents = {dependents_status}: {churn_rate:.2%}")
+    st.write(f"Churn rate for customers with Partner = {partner_status} and Dependents = {dependents_status}: {churn_rate:.2%}")
 
 """
 Conclusion
@@ -222,7 +226,7 @@ Conclusion
 """
 
 """
-Predictive Question
+##### 2.4 Predictive Question
 Can we predict the likelihood of churn for a customer based on their contract type with the company?
 """
 
@@ -232,24 +236,19 @@ churn_counts = df.groupby(['Contract', 'Churn']).size().reset_index(name='Counts
 # Pivot the DataFrame for easy plotting
 pivot_df = churn_counts.pivot(index='Contract', columns='Churn', values='Counts')
 
-ax = pivot_df.plot(kind='bar', color=['lightcoral', 'skyblue'], figsize=(12, 5))
-plt.title('Churn Distribution by Contract Type')
-plt.xlabel('Contract Type')
-plt.ylabel('Number of Customers')
-plt.legend(title='Churn', labels=['Churn', 'No Churn'], loc='upper right')
-plt.xticks(rotation=0)
+st.title('Churn Distribution by Contract Type')
 
-for p in ax.patches:
-    ax.annotate(str(int(p.get_height())), (p.get_x() + p.get_width() / 2., p.get_height()),
-                ha='center', va='center', xytext=(0, 5), textcoords='offset points', color='black', fontweight='bold')
+# Plot churn distribution by contract type
+st.bar_chart(pivot_df, use_container_width=True)
 
-plt.show()
+# Display table with churn counts
+st.write("## Churn Counts by Contract Type")
+st.write(pivot_df)
 
-# Count the occurrences of churn for each contract type
-churn_counts = df.groupby(['Contract', 'Churn']).size().reset_index(name='Counts')
-pivot_table = churn_counts.pivot(index='Contract', columns='Churn', values='Counts').fillna(0).astype(int)
-pivot_table['Total'] = pivot_table.sum(axis=1)
-print(pivot_table)
+# Display total churn counts
+total_counts = pivot_df.sum(axis=1)
+st.write("## Total Churn Counts by Contract Type")
+st.write(total_counts)
 
 """
 Conclusion
@@ -265,7 +264,7 @@ compared to those with month-to-month contracts. This suggests that longer-term 
 """
 
 """
-Causal Question
+##### 2.5 Causal Question
 Does the introduction of a more customer-friendly payment method, such as providing incentives for customers 
 to switch to automatic bank transfers or credit card payments, lead to a reduction in customer churn rates?
 """
@@ -273,9 +272,11 @@ to switch to automatic bank transfers or credit card payments, lead to a reducti
 # Select relevant columns
 payment_churn_df = df[['PaymentMethod', 'Churn']]
 
+st.title('Churn Distribution by Payment Method')
+
 # Create a bar chart to visualize the relationship between payment method and churn
-plt.figure(figsize=(12, 5))
-ax = sns.countplot(x='PaymentMethod', hue='Churn', data=payment_churn_df, palette='magma')
+fig, ax = plt.subplots(figsize=(12, 5))
+sns.countplot(x='PaymentMethod', hue='Churn', data=payment_churn_df, palette='magma', ax=ax)
 
 for p in ax.patches:
     ax.annotate(str(int(p.get_height())), (p.get_x() + p.get_width() / 2., p.get_height()),
@@ -286,14 +287,19 @@ plt.xlabel('Payment Method')
 plt.ylabel('Number of Customers')
 plt.xticks(rotation=-15, ha='left')
 plt.legend(title='Churn', labels=['No Churn', 'Churn'])
-plt.show()
+
+# Display the plot in Streamlit
+st.pyplot(fig)
 
 # Count the occurrences of churn for each payment method
 payment_churn_counts = df.groupby(['PaymentMethod', 'Churn']).size().reset_index(name='Counts')
 pivot_df = payment_churn_counts.pivot(index='PaymentMethod', columns='Churn', values='Counts')
 pivot_df['Total'] = pivot_df['No'] + pivot_df['Yes']
-print("Churn Distribution by Payment Method:")
-print(pivot_df[['No', 'Yes', 'Total']])
+
+# Display the churn distribution by payment method as a table
+st.write("## Churn Distribution by Payment Method:")
+st.write(pivot_df[['No', 'Yes', 'Total']])
+
 
 """
 Conclusion
@@ -309,31 +315,29 @@ It is observed that the churn rate is significantly higher for customers using e
 """
 
 """
-Mechanistic Question
+##### 2.6 Mechanistic Question
 How does the length of time a customer stays with the company (tenure) impact their likelihood of churning, 
 and can we identify specific patterns or trends in tenure that contribute to customer retention or attrition?
 """
 
+st.title('Distribution of Tenure by Churn')
+
 # Create a boxplot for the distribution of tenure by Churn
-plt.figure(figsize=(6, 5))
-sns.boxplot(x='Churn', y='tenure', data=df, palette='Blues')
+fig, ax = plt.subplots(figsize=(6, 5))
+sns.boxplot(x='Churn', y='tenure', data=df, palette='Blues', ax=ax)
 plt.title('Distribution of Tenure by Churn')
 plt.xlabel('Churn')
 plt.ylabel('Tenure (months)')
-plt.show()
+
+# Display the plot in Streamlit
+st.pyplot(fig)
 
 # Calculate summary statistics for tenure
 summary_stats = df.groupby('Churn')['tenure'].describe().round(2)
-print(summary_stats)
 
-"""
-For customers who did not churn (Churn = No):
-- The mean tenure is approximately 37.57 months.
-- This suggests that, on average, customers who did not churn have been with the company for a longer period.
-
-For customers who churned (Churn = Yes):
-- The mean tenure is approximately 17.98 months.
-- This implies that, on average, customers who churned have a shorter tenure with the company.
+# Display the summary statistics as a table
+st.write("## Summary Statistics for Tenure:")
+st.write(summary_stats)
 
 Conclusion
 
