@@ -43,24 +43,25 @@ import matplotlib.pyplot as plt
 # %matplotlib inline
 import seaborn as sns
 from scipy import stats
+import streamlit as st
 
 """### (1) EDA"""
 df = pd.read_csv("Telco-Customer-Churn.csv")
 """##### df.shape"""
-print('Row =', df.shape[0])
-print('Column =', df.shape[1])
+st.write('Row =', df.shape[0])
+st.write('Column =', df.shape[1])
 """##### df.types"""
-df.dtypes
+st.write(df.dtypes)
 """##### df.info()"""
-print(df.info())
+st.write(df.info())
 """##### df.isnull().sum()"""
-print(df.isnull().sum())
+st.write(df.isnull().sum())
 """##### df"""
-df
+st.write(df)
 """##### df.sample(n = 10)"""
-df.sample(n = 10)
+st.write(df.sample(n=10))
 """##### df.describe()"""
-print(df.describe())
+st.write(df.describe())
 
 """The Question
 
