@@ -52,8 +52,6 @@ st.write('Row =', df.shape[0])
 st.write('Column =', df.shape[1])
 """##### df.types"""
 st.write(df.dtypes)
-"""##### df.info()"""
-st.write(df.info())
 """##### df.isnull().sum()"""
 st.write(df.isnull().sum())
 """##### df"""
@@ -63,7 +61,8 @@ st.write(df.sample(n=10))
 """##### df.describe()"""
 st.write(df.describe())
 
-"""The Question
+"""
+##### The Question
 
 1. Descriptive: A descriptive question is one that seeks to summarize a characteristic of a set of data.
 
@@ -79,7 +78,7 @@ st.write(df.describe())
 """
 
 """
-Descriptive Question
+##### Descriptive Question
 What is the churn rate derived from the dataset?
 """
 
