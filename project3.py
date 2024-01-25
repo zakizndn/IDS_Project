@@ -109,7 +109,8 @@ The churn rate is approximately 26.54%. This indicates the percentage of custome
 
 """
 #### (2.2) Exploratory Question
-How do the churn correlate with the adoption of additional services like Online Security, Streaming TV, and Device Protection?
+How do the churn correlate with the adoption of additional services like Online Backup, Online Security, 
+Streaming TV, Streaming Movies, Device Protection, and Tech Support?
 """
 
 # Select relevant columns for analysis and create a copy
