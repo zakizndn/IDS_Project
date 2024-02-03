@@ -320,7 +320,9 @@ st.write(pivot_df[['No', 'Yes', 'Total', 'Churn Rate (%)']].round(2))
 
 """
 ###### Finding 5
-It is observed that the churn rate is significantly higher for customers using electronic check as the payment method compared to other payment methods. Therefore, the results suggest that customers using electronic check tend to have a higher likelihood of churning. This supports the idea that introducing more customer-friendly payment methods (e.g., bank transfer or credit card) could potentially lead to a reduction in customer churn rates.
+- It is observed that the churn rate is significantly higher for customers using electronic check as the payment method compared to other payment methods. 
+- Therefore, the results suggest that customers using electronic check tend to have a higher likelihood of churning. 
+- This supports the idea that introducing more customer-friendly payment methods (e.g., bank transfer or credit card) could potentially lead to a reduction in customer churn rates.
 """
 
 """
@@ -354,12 +356,11 @@ Customers with a lower tenure, on average, are more likely to churn.
 
 """
 #### Overall Conclusion
-
-• Churn appears to be influenced by a combination of service-related factors, relationship
+- Churn appears to be influenced by a combination of service-related factors, relationship
 dynamics, contract durations, payment methods, and customer tenure.
-• Offering reliable and value-added services, understanding the nuances of customer
+- Offering reliable and value-added services, understanding the nuances of customer
 relationships, promoting longer contract durations, and improving payment options could
 collectively contribute to reducing churn.
-• Regular monitoring and adaptation of strategies based on customer behavior patterns are
+- Regular monitoring and adaptation of strategies based on customer behavior patterns are
 crucial for maintaining customer satisfaction and loyalty.
 """
