@@ -47,7 +47,7 @@ import streamlit as st
 
 """## (1.0) EDA"""
 df = pd.read_csv("Telco-Customer-Churn.csv")
-"""#### (1.1) df.shape"""
+"""#### (1.1) df.shape - Return a tuple representing the dimensionality of the data frame"""
 st.write('Row =', df.shape[0])
 st.write('Column =', df.shape[1])
 """#### (1.2) df.types"""
