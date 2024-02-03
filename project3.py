@@ -50,6 +50,7 @@ df = pd.read_csv("Telco-Customer-Churn.csv")
 """#### (1.1) df.shape - Return a tuple representing the dimensionality of the data frame"""
 st.write('Row =', df.shape[0])
 st.write('Column =', df.shape[1])
+"""The Telco Customer Churn dataset has 7043 rows and 21 columns."""
 """#### (1.2) df.types"""
 st.write(df.dtypes)
 """#### (1.3) df.isnull().sum()"""
