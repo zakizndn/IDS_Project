@@ -45,27 +45,34 @@ import seaborn as sns
 from scipy import stats
 import streamlit as st
 
-"""## (1.0) EDA"""
+"""## 1.0 Exploratory Data Analysis"""
 df = pd.read_csv("Telco-Customer-Churn.csv")
-"""#### (1.1) df.shape - Return a tuple representing the dimensionality of the data frame"""
+"""#### 1.1 df.shape"""
 st.write('Row =', df.shape[0])
 st.write('Column =', df.shape[1])
 """The Telco Customer Churn dataset has 7043 rows and 21 columns."""
-"""#### (1.2) df.types"""
+"""#### 1.2 df.types"""
 st.write(df.dtypes)
-"""#### (1.3) df.isnull().sum()"""
+"""This method returns a series with the data type of each column. SeniorCitizen, tenure,
+MonthlyCharges are numerical data, and the rest of the attributes are categorical data."""
+"""#### 1.3 df.isnull().sum()"""
 st.write(df.isnull().sum())
-"""#### (1.4) df"""
+"""This method gives the total count of null for each column (attribute)."""
+"""#### 1.4 df"""
 st.write(df)
-"""#### (1.5) df.sample(n = 10)"""
+"""#### 1.5 df.sample(n = 10)"""
 st.write(df.sample(n=10))
-"""#### (1.6) df.describe()"""
+"""This method returns a random sample of 10 rows (n = 10) from the dataset."""
+"""#### 1.6 df.describe()"""
 st.write(df.describe())
+"""For numerical data, the result’s index will include count, mean, std, min, max as well as lower,
+50 and upper percentiles. By default, the lower percentile is 25 and the upper percentile is 75.
+The 50 percentile is the same as the median."""
 
 st.markdown("---") 
 
 """
-## (2.0) What determines the reasons for customers to give up the services
+## 2.0 What determines the reasons for customers to give up the services
 
 #### The Question
 
@@ -83,7 +90,7 @@ st.markdown("---")
 """
 
 """
-#### (2.1) Descriptive Question
+#### 2.1 Descriptive Question
 What is the churn rate derived from the dataset?
 """
 
@@ -103,13 +110,13 @@ plt.ylabel('Number of Customers')
 st.pyplot(fig)
 
 """
-###### Conclusion
+###### Finding 1
 
 The churn rate is approximately 26.54%. This indicates the percentage of customers who have churned out of the total customer population.
 """
 
 """
-#### (2.2) Exploratory Question
+#### 2.2 Exploratory Question
 How do the churn correlate with the adoption of additional services like Online Backup, Online Security, 
 Streaming TV, Streaming Movies, Device Protection, and Tech Support?
 """
@@ -135,7 +142,7 @@ plt.title('Correlation Matrix: Churn and Additional Services')
 st.pyplot(fig)
 
 """
-###### Conclusion
+###### Finding 2
 
 Churn and Online Backup:
 - There is a weak negative correlation (-0.08) between 'Churn' and 'Online Backup'.
@@ -163,7 +170,7 @@ Churn and Tech Support:
 """
 
 """
-#### (2.3) Inferential Question
+#### 2.3 Inferential Question
 Based on the observed higher churn rate for customers with a partner in the dataset, can we infer that this difference is consistent for customers with dependents?
 """
 
@@ -225,15 +232,14 @@ churn_rates_df = pd.DataFrame(churn_rates_results)
 st.table(churn_rates_df.style.format({'Churn Rate (%)': '{:.2f}%'}))
 
 """
-###### Conclusion
-
+###### Finding 3
 - The difference in churn rates for customers with a partner appears to be influenced by the presence or absence of dependents.
 - Customers with both a partner and dependents have the lowest churn rate, suggesting that having both a partner and dependents may contribute to higher customer retention.
 - However, the churn rate is higher for customers with a partner but no dependents, indicating that the relationship between having a partner and churn is influenced by other factors, such as the presence of dependents.
 """
 
 """
-#### (2.4) Predictive Question
+#### 2.4 Predictive Question
 Can we predict the likelihood of churn for a customer based on their contract type with the company?
 """
 
@@ -271,13 +277,13 @@ st.write("###### Churn Distribution by Contract Type:")
 st.write(pivot_df[['No', 'Yes', 'Total', 'Churn Rate (%)']].round(2))
 
 """
-###### Conclusion
+###### Finding 4
 Customers with longer contract durations (one year and two years) tend to have lower churn rates 
 compared to those with month-to-month contracts. This suggests that longer-term contracts are associated with higher customer retention.
 """
 
 """
-#### (2.5) Causal Question
+#### 2.5 Causal Question
 Does the introduction of a more customer-friendly payment method, such as providing incentives for customers to switch to automatic bank transfers or credit card payments, lead to a reduction in customer churn rates?
 """
 
@@ -313,12 +319,12 @@ st.write(pivot_df[['No', 'Yes', 'Total', 'Churn Rate (%)']].round(2))
 
 
 """
-###### Conclusion
+###### Finding 5
 It is observed that the churn rate is significantly higher for customers using electronic check as the payment method compared to other payment methods. Therefore, the results suggest that customers using electronic check tend to have a higher likelihood of churning. This supports the idea that introducing more customer-friendly payment methods (e.g., bank transfer or credit card) could potentially lead to a reduction in customer churn rates.
 """
 
 """
-#### (2.6) Mechanistic Question
+#### 2.6 Mechanistic Question
 How does the length of time a customer stays with the company (tenure) impact their likelihood of churning, and can we identify specific patterns or trends in tenure that contribute to customer retention or attrition?
 """
 
@@ -340,8 +346,20 @@ st.write("###### Summary Statistics for Tenure:")
 st.write(summary_stats)
 
 """
-###### Conclusion
+###### Finding 6
 
 Customers who have been with the company for a longer period (higher tenure) have a lower likelihood of churning.
 Customers with a lower tenure, on average, are more likely to churn.
+"""
+
+"""
+#### Overall Conclusion
+
+• Churn appears to be influenced by a combination of service-related factors, relationship
+dynamics, contract durations, payment methods, and customer tenure.
+• Offering reliable and value-added services, understanding the nuances of customer
+relationships, promoting longer contract durations, and improving payment options could
+collectively contribute to reducing churn.
+• Regular monitoring and adaptation of strategies based on customer behavior patterns are
+crucial for maintaining customer satisfaction and loyalty.
 """
