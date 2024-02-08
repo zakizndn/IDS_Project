@@ -353,7 +353,7 @@ st.write(summary_stats)
 Customers who have been with the company for a longer period (higher tenure) have a lower likelihood of churning.
 Customers with a lower tenure, on average, are more likely to churn.
 """
-
+st.markdown("---")
 """
 #### Overall Conclusion
 - Churn appears to be influenced by a combination of service-related factors, relationship
